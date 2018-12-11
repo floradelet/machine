@@ -52,12 +52,13 @@ def load_from_csv(path, delimiter=',', manual=False):
     D: array
         The NumPy array of the data contained in the file
     """
-    print('start')
+
     res=pd.read_csv(path, delimiter=delimiter).values.squeeze()
     if manual:
+        print('start')
         length=res.shape[1]-1
         wrong=res[pd.isnull(res[:,length])]
-    print(wrong)
+        print(wrong)
     return res
 
 
