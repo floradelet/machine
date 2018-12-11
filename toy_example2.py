@@ -36,7 +36,7 @@ def measure_time(label):
                                         datetime.timedelta(seconds=end-start)))
 
 
-def load_from_csv(path, delimiter=','):
+def load_from_csv(path, delimiter=',', manual=False):
     """
     Load csv file and return a NumPy array of its data
 
@@ -54,12 +54,10 @@ def load_from_csv(path, delimiter=','):
     """
     print('start')
     res=pd.read_csv(path, delimiter=delimiter).values.squeeze()
-    length=res.shape[1]-1
-    print(res.shape)
-    print(length)
-    wrong=res[pd.isnull(res[:,length])]
+    if manual:
+        length=res.shape[1]-1
+        wrong=res[pd.isnull(res[:,length])]
     print(wrong)
-    print('ok')
     return res
 
 
@@ -358,69 +356,16 @@ if __name__ == '__main__':
                          max_iter=iterNN,
                          learning_rate_init=lri,
                          alpha=alphaNN)
-    model_age_title = MLPRegressor(hidden_layer_sizes=(layer,),
-                         activation='logistic',
-                         solver='adam',
-                         learning_rate='adaptive',
-                         max_iter=iterNN,
-                         learning_rate_init=lri,
-                         alpha=alphaNN)
-    model_age_date = MLPRegressor(hidden_layer_sizes=(layer,),
-                         activation='logistic',
-                         solver='adam',
-                         learning_rate='adaptive',
-                         max_iter=iterNN,
-                         learning_rate_init=lri,
-                         alpha=alphaNN)
-    model_age_gender = MLPRegressor(hidden_layer_sizes=(layer,),
-                         activation='logistic',
-                         solver='adam',
-                         learning_rate='adaptive',
-                         max_iter=iterNN,
-                         learning_rate_init=lri,
-                         alpha=alphaNN)
-    model_gender_title = MLPRegressor(hidden_layer_sizes=(layer,),
-                         activation='logistic',
-                         solver='adam',
-                         learning_rate='adaptive',
-                         max_iter=iterNN,
-                         learning_rate_init=lri,
-                         alpha=alphaNN)
-    model_gender_date = MLPRegressor(hidden_layer_sizes=(layer,),
-                         activation='logistic',
-                         solver='adam',
-                         learning_rate='adaptive',
-                         max_iter=iterNN,
-                         learning_rate_init=lri,
-                         alpha=alphaNN)
-    model_gender_gender = MLPRegressor(hidden_layer_sizes=(layer,),
-                         activation='logistic',
-                         solver='adam',
-                         learning_rate='adaptive',
-                         max_iter=iterNN,
-                         learning_rate_init=lri,
-                         alpha=alphaNN)
-    model_occupation_title = MLPRegressor(hidden_layer_sizes=(layer,),
-                         activation='logistic',
-                         solver='adam',
-                         learning_rate='adaptive',
-                         max_iter=iterNN,
-                         learning_rate_init=lri,
-                         alpha=alphaNN)
-    model_occupation_date = MLPRegressor(hidden_layer_sizes=(layer,),
-                         activation='logistic',
-                         solver='adam',
-                         learning_rate='adaptive',
-                         max_iter=iterNN,
-                         learning_rate_init=lri,
-                         alpha=alphaNN)
-    model_occupation_gender = MLPRegressor(hidden_layer_sizes=(layer,),
-                         activation='logistic',
-                         solver='adam',
-                         learning_rate='adaptive',
-                         max_iter=iterNN,
-                         learning_rate_init=lri,
-                         alpha=alphaNN)
+    model_age_title = model
+    model_age_date = model
+    model_age_gender = model
+    model_gender_title = model
+    model_gender_date = model
+    model_gender_gender = model
+    model_occupation_title = model
+    model_occupation_date = model
+    model_occupation_gender = model
+    
     with measure_time('Training'):
         """
         print('Training...')
